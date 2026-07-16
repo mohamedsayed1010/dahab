@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useProductsHook from "./useProductsHook";
 
@@ -6,22 +5,26 @@ export default function Products() {
   const navigate = useNavigate();
 
   const {
-    products,
+    displayedProducts,
     isLoading,
     removeProduct,
     isDeleting,
+
     categories,
+    types,
+
+    selectedCategory,
+    setSelectedCategory,
+
+    selectedMetal,
+    setSelectedMetal,
+
+    selectedKarat,
+    setSelectedKarat,
+
+    selectedType,
+    setSelectedType,
   } = useProductsHook();
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  const filteredProducts = selectedCategory
-    ? products.filter(
-        (product) =>
-          product.category?._id === selectedCategory ||
-          product.category === selectedCategory
-      )
-    : products;
 
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
@@ -33,19 +36,21 @@ export default function Products() {
         المنتجات
       </h1>
 
-      {/* CATEGORY FILTER */}
-      <div className="mb-6">
+      {/* FILTERS */}
+      <div className="flex flex-wrap gap-3 mb-6">
+        {/* CATEGORY */}
         <select
           value={selectedCategory}
           onChange={(e) =>
             setSelectedCategory(e.target.value)
           }
           className="
-            w-full md:w-72
-            border border-border
+            px-4
+            py-2
+            rounded-xl
+            border
+            border-border
             bg-card
-            rounded-lg
-            p-3
             dark:text-white
           "
         >
@@ -60,10 +65,78 @@ export default function Products() {
             </option>
           ))}
         </select>
+
+        {/* METAL */}
+        <select
+          value={selectedMetal}
+          onChange={(e) =>
+            setSelectedMetal(e.target.value)
+          }
+          className="
+            px-4
+            py-2
+            rounded-xl
+            border
+            border-border
+            bg-card
+            dark:text-white
+          "
+        >
+          <option value="">كل المعادن</option>
+          <option value="gold">ذهب</option>
+          <option value="silver">فضة</option>
+        </select>
+
+        {/* KARAT */}
+        <select
+          value={selectedKarat}
+          onChange={(e) =>
+            setSelectedKarat(e.target.value)
+          }
+          className="
+            px-4
+            py-2
+            rounded-xl
+            border
+            border-border
+            bg-card
+            dark:text-white
+          "
+        >
+          <option value="">كل العيارات</option>
+          <option value="24">24</option>
+          <option value="21">21</option>
+          <option value="18">18</option>
+        </select>
+
+        {/* TYPE */}
+        <select
+          value={selectedType}
+          onChange={(e) =>
+            setSelectedType(e.target.value)
+          }
+          className="
+            px-4
+            py-2
+            rounded-xl
+            border
+            border-border
+            bg-card
+            dark:text-white
+          "
+        >
+          <option value="">كل الأصناف</option>
+
+          {types.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => (
+        {displayedProducts.map((product) => (
           <div
             key={product._id}
             className="bg-card border border-border rounded-xl p-4"
@@ -140,9 +213,9 @@ export default function Products() {
         ))}
       </div>
 
-      {filteredProducts.length === 0 && (
+      {displayedProducts.length === 0 && (
         <div className="text-center py-10 text-gray-500">
-          لا يوجد منتجات في هذا التصنيف
+          لا يوجد منتجات مطابقة للفلاتر
         </div>
       )}
     </div>
