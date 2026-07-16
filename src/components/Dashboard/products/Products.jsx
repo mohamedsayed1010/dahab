@@ -66,26 +66,7 @@ export default function Products() {
           ))}
         </select>
 
-        {/* METAL */}
-        <select
-          value={selectedMetal}
-          onChange={(e) =>
-            setSelectedMetal(e.target.value)
-          }
-          className="
-            px-4
-            py-2
-            rounded-xl
-            border
-            border-border
-            bg-card
-            dark:text-white
-          "
-        >
-          <option value="">كل المعادن</option>
-          <option value="gold">ذهب</option>
-          <option value="silver">فضة</option>
-        </select>
+
 
         {/* KARAT */}
         <select
