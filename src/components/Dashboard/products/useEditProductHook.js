@@ -11,7 +11,7 @@ import { getProductById } from "../../../api/products/getProductById";
 import { updateProduct } from "../../../api/products/updateProduct";
 
 export default function useEditProductHook() {
-  const { token } = useContext(AuthContext);
+  const { accessToken } = useContext(AuthContext);
   const { id } = useParams();
   console.log("ID:", id);
   const navigate = useNavigate();
@@ -22,15 +22,15 @@ export default function useEditProductHook() {
   // Categories
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(token),
-    enabled: !!token,
+    queryFn: () => getCategories(accessToken),
+    enabled: !!accessToken,
   });
 
   // Product
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProductById({ id, token }),
-    enabled: !!id && !!token,
+    queryFn: () => getProductById({ id, accessToken }),
+    enabled: !!id && !!accessToken,
   });
 
   const validationSchema = Yup.object({
@@ -75,7 +75,7 @@ export default function useEditProductHook() {
         await updateProduct({
           id,
           values,
-          token,
+          accessToken,
         });
 
         toast.success("تم تعديل المنتج بنجاح ✅");

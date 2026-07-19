@@ -13,7 +13,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { getCategories } from "../../../api/Categories/getCategories";
 
 export default function useProductsHook() {
-  const { token } = useContext(AuthContext);
+  const { accessToken } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
   // ================= FILTERS =================
@@ -28,8 +28,8 @@ export default function useProductsHook() {
     isLoading: productsLoading,
   } = useQuery({
     queryKey: ["products"],
-    queryFn: () => getProducts(token),
-    enabled: !!token,
+    queryFn: () => getProducts(accessToken),
+    enabled: !!accessToken,
   });
 
   // ================= GET CATEGORIES =================
@@ -38,8 +38,8 @@ export default function useProductsHook() {
     isLoading: categoriesLoading,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(token),
-    enabled: !!token,
+    queryFn: () => getCategories(accessToken),
+    enabled: !!accessToken,
   });
 
   // ================= PRODUCT TYPES =================
@@ -89,7 +89,7 @@ export default function useProductsHook() {
     mutationFn: ({ id }) =>
       deleteProduct({
         id,
-        token,
+        accessToken,
       }),
 
     onSuccess: () => {
@@ -114,7 +114,7 @@ export default function useProductsHook() {
       updateProduct({
         id,
         values,
-        token,
+        accessToken,
       }),
 
     onSuccess: () => {

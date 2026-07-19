@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import useDashboardPrices from "./useDashboardPrices";
 
-export default function Dashboard() {
-  const { user, token } = useContext(AuthContext);
 
-  const { goldFormik, silverFormik } = useDashboardPrices(token);
+export default function Dashboard() {
+  const { user, accessToken } = useContext(AuthContext);
+
+  const { goldFormik, silverFormik } = useDashboardPrices(accessToken);
+
 
   return (
     <div className="p-6">

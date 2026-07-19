@@ -1,16 +1,38 @@
 import axios from "axios";
+import { refreshAccessToken } from "../auth/refreshToken"; // عدل المسار
 
 export const getGoldPrices = async () => {
-  const token = localStorage.getItem("tkn");
+  let accessToken = localStorage.getItem("accessToken");
 
-  const { data } = await axios.get(
-    "https://api.dahbelarby.com/api/gold-prices",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  try {
+    const { data } = await axios.get(
+      "https://api.dahbelarby.com/api/gold-prices",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      await refreshAccessToken();
+
+      accessToken = localStorage.getItem("accessToken");
+
+      const { data } = await axios.get(
+        "https://api.dahbelarby.com/api/gold-prices",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      return data;
     }
-  );
 
-  return data;
+    throw error;
+  }
 };

@@ -1,6 +1,12 @@
 import axios from "axios";
+import { refreshAccessToken } from "../auth/refreshToken";
 
-export const updateProduct = async ({ id, values, token }) => {
+export const updateProduct = async ({
+  id,
+  values,
+}) => {
+  let accessToken = localStorage.getItem("accessToken");
+
   const formData = new FormData();
 
   formData.append("name", values.name);
@@ -17,15 +23,37 @@ export const updateProduct = async ({ id, values, token }) => {
     formData.append("image", values.image);
   }
 
-  const { data } = await axios.put(
-    `https://api.dahbelarby.com/api/products/${id}`,
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  try {
+    const { data } = await axios.put(
+      `https://api.dahbelarby.com/api/products/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
-  return data.data;
+    return data.data;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      const tokens = await refreshAccessToken();
+
+      accessToken = tokens.accessToken;
+
+      const { data } = await axios.put(
+        `https://api.dahbelarby.com/api/products/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      return data.data;
+    }
+
+    throw error;
+  }
 };
