@@ -29,7 +29,7 @@ import usePWAInstall from "../../context/usePWAInstall";
 import IOSInstallModal from "../IOSInstallModal/IOSInstallModal";
 
 export default function Navbar() {
-  const { token, user, logout } = useContext(AuthContext);
+  const {accessToken: token, user, logout } = useContext(AuthContext);
 
   const navigate = useNavigate();
 

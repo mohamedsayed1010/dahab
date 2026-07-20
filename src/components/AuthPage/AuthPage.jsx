@@ -119,7 +119,7 @@ const normalizePhone = (phone) => {
       // ================= ADMIN LOGIN =================
 const ADMIN_PHONES = [
   "+201027070200",
-  "+201289289381", // الرقم الثاني
+  "+201557070595", // الرقم الثاني
 ];
 
 if (ADMIN_PHONES.includes(data.user?.phone)) {
