@@ -8,8 +8,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
-  const [otpStep, setOtpStep] = useState(false);
-  const [code, setCode] = useState("");
 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -119,7 +117,7 @@ const normalizePhone = (phone) => {
       // ================= ADMIN LOGIN =================
 const ADMIN_PHONES = [
   "+201027070200",
-  "+201557070595", // الرقم الثاني
+  "+201557070595", 
 ];
 
 if (ADMIN_PHONES.includes(data.user?.phone)) {
@@ -138,81 +136,17 @@ if (ADMIN_PHONES.includes(data.user?.phone)) {
 }
 
       // ================= USER LOGIN =================
-      localStorage.setItem(
-        "pendingAccessToken",
-        data.accessToken
-      );
-      localStorage.setItem(
-        "pendingRefreshToken",
-        data.refreshToken
-      );
-      localStorage.setItem(
-        "pendingUser",
-        JSON.stringify(data.user)
-      );
-
-      toast.success("تم إرسال الكود على تيليجرام");
-      setOtpStep(true);
-    } catch (error) {
-      toast.error(
-        error?.response?.data?.message || "حدث خطأ"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // ================= VERIFY CODE =================
-  const verifyCode = async (phone) => {
-    if (!code) {
-      return toast.error("ادخل الكود");
-    }
-
-    try {
-      setIsLoading(true);
-
-      const pendingAccessToken =
-        localStorage.getItem("pendingAccessToken");
-      const pendingRefreshToken =
-        localStorage.getItem("pendingRefreshToken");
-      const pendingUser = JSON.parse(
-        localStorage.getItem("pendingUser")
-      );
-
-      await axios.post(
-        "https://api.dahbelarby.com/api/telegram/verify-code",
-        {
-          phone: normalizePhone(phone),
-          code,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${pendingAccessToken}`,
-          },
-        }
-      );
-
-      // تسجيل الدخول بعد نجاح OTP
       login({
-        accessToken: pendingAccessToken,
-        refreshToken: pendingRefreshToken,
-        user: {
-          ...pendingUser,
-          role: "user",
-        },
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+        user: data.user,
       });
-
-      // تنظيف البيانات المؤقتة
-      localStorage.removeItem("pendingAccessToken");
-      localStorage.removeItem("pendingRefreshToken");
-      localStorage.removeItem("pendingUser");
 
       toast.success("تم تسجيل الدخول بنجاح");
       navigate("/");
     } catch (error) {
       toast.error(
-        error?.response?.data?.message ||
-          "الكود غير صحيح"
+        error?.response?.data?.message || "حدث خطأ"
       );
     } finally {
       setIsLoading(false);
@@ -229,11 +163,7 @@ if (ADMIN_PHONES.includes(data.user?.phone)) {
     validationSchema,
 
     onSubmit: (values) => {
-      if (otpStep) {
-        verifyCode(values.phone);
-      } else {
-        signin(values);
-      }
+      signin(values);
     },
   });
 
@@ -294,26 +224,12 @@ if (ADMIN_PHONES.includes(data.user?.phone)) {
             </p>
           )}
 
-          {otpStep && (
-            <input
-              type="text"
-              placeholder="كود التحقق"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              className="w-full p-3 rounded-xl border border-border bg-transparent dark:text-white"
-            />
-          )}
-
           <button
             type="submit"
             disabled={isLoading}
             className="w-full bg-primary text-black font-bold py-3 rounded-xl"
           >
-            {isLoading
-              ? "جاري..."
-              : otpStep
-              ? "تسجيل الدخول"
-              : "إرسال الكود"}
+            {isLoading ? "جاري..." : "تسجيل الدخول"}
           </button>
         </form>
       </div>

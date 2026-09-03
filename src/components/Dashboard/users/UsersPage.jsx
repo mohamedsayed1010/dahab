@@ -26,21 +26,18 @@ export default function UsersPage() {
     serial: index + 1,
     name: user.name,
     phone: user.phone,
-    telegram: !!user.telegramSession,
     createdAt: new Date(user.createdAt).toLocaleDateString("en-GB"),
   }));
 
   const copyPhones = async () => {
     try {
       const phones = users
-        .filter((user) => user.telegramSession) // 👈 Connected الحقيقي من الداتا
         .map((user) => user.phone?.trim())
-        .filter(Boolean)
-        .join("\n");
+        .filter(Boolean);
 
-      await navigator.clipboard.writeText(phones);
+      await navigator.clipboard.writeText(phones.join("\n"));
 
-      alert(`Copied ${phones.split("\n").length} connected phone numbers`);
+      alert(`Copied ${phones.length} phone numbers`);
     } catch (error) {
       console.error(error);
       alert("Failed to copy phone numbers");
@@ -66,23 +63,6 @@ export default function UsersPage() {
       headerName: "Phone",
       flex: 1,
       minWidth: 150,
-    },
-    {
-      field: "telegram",
-      headerName: "Telegram",
-      minWidth: 150,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) =>
-        params.value ? (
-          <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">
-            Connected
-          </span>
-        ) : (
-          <span className="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">
-            Not Connected
-          </span>
-        ),
     },
     {
       field: "createdAt",

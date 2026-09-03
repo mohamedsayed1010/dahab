@@ -108,11 +108,11 @@ const SilverPrices = () => {
             </div>
 
             <div className="p-3 text-center dark:text-white text-3xl font-bold">
-              {Math.floor(item.sell)}
+              {Math.ceil(item.sell)}
             </div>
 
             <div className="p-3 text-center dark:text-white text-3xl font-bold">
-              {Math.floor(item.buy)}
+              {Math.ceil(item.buy)}
             </div>
           </div>
         ))}

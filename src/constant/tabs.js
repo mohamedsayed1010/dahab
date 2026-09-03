@@ -11,30 +11,24 @@ export const tabs = [
     path: "/",
   },
   {
-    id: "bars",
-    label: "سبائك",
+    id: "gold",
+    label: "دهب",
     children: [
       {
         id: "bars-list",
-        label: "سبائك24",
+        label: "سبــــــايك ",
         icon: GiMetalBar,
         path: "/bars/list",
       },
-      {
-        id: "coins",
-        label: "جنيهات21",
-        icon: FaCoins,
-        path: "/bars/coins",
-      },
-    ],
-  },
-  {
-    id: "jewelry",
-    label: "مشغولات",
-    children: [
+      // {
+      //   id: "coins",
+      //   label: "جنيهات21",
+      //   icon: FaCoins,
+      //   path: "/bars/coins",
+      // },
       {
         id: "new",
-        label: "جديد",
+        label: "جـــــــديد",
         icon: GiRingBox,
         path: "/jewelry/new",
       },
@@ -52,15 +46,21 @@ export const tabs = [
     children: [
       {
         id: "prices",
-        label: "أسعار",
+        label: "أســعــار",
         icon: LuArrowUpDown,
         path: "/silver/prices",
       },
       {
         id: "silver-bars",
-        label: "سبائك",
+        label: "سبــــــايك",
         icon: GiMetalBar,
         path: "/silver/bars",
+      },
+      {
+        id: "silver-products",
+        label: "مشغولات ",
+        icon: GiRingBox,
+        path: "/silver/products",
       },
     ],
   },

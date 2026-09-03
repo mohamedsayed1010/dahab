@@ -37,15 +37,23 @@ export default function useBars(category) {
     [silverData]
   );
 
-  const filteredProducts = useMemo(() => {
-    return products.filter(
-      (item) => item?.category?.name === category
-    );
-  }, [products, category]);
+const filteredProducts = useMemo(() => {
+  const categories = Array.isArray(category)
+    ? category
+    : [category];
 
-  const title = useMemo(() => {
-    return filteredProducts?.[0]?.category?.name || category;
-  }, [filteredProducts, category]);
+  return products.filter((item) =>
+    categories.includes(item?.category?.name)
+  );
+}, [products, category]);
+
+const title = useMemo(() => {
+  if (Array.isArray(category)) {
+    return "السبائك والجنيهات";
+  }
+
+  return filteredProducts?.[0]?.category?.name || category;
+}, [filteredProducts, category]);
 
   const weights = useMemo(() => {
     return [

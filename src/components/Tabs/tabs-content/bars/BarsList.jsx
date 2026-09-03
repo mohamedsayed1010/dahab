@@ -3,7 +3,10 @@ import Bars from '../../../Bars/Bars'
 
 const BarsList = () => {
   return (
-    <Bars   category="سبائك ذهب"/>
+    <>
+  <Bars category={["سبائك ذهب", "جنيهات"]}/>
+    </>
+    
   )
 }
 

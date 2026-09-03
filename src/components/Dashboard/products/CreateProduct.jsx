@@ -5,6 +5,7 @@ export default function CreateProduct() {
     formik,
     categories,
     preview,
+    isLoading,
     handleImageChange,
     fileInputRef,
   } = useCreateProductHook();

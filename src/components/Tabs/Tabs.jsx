@@ -5,7 +5,16 @@ import useTabsLogic from "./hook/useTabsLogic";
 
 export default function Tabs() {
 
-
+  const getFlex = (label) => {
+  switch (label) {
+    case "فضة":
+      return "flex-[1.4]";
+    case "سبائك":
+      return "flex-[0.8]";
+    default:
+      return "flex-1";
+  }
+};
   const{
      isMainActive,
     handleMainClick,
@@ -23,7 +32,7 @@ export default function Tabs() {
           return (
             <div
               key={tab.id}
-              className="flex-1 flex flex-col border-l border-border last:border-l-0"
+                className={`flex flex-col border-l border-border last:border-l-0 ${getFlex(tab.label)}`}
             >
               {/* MAIN TAB */}
               <button

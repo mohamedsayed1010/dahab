@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   useQuery,
   useMutation,
@@ -9,11 +9,9 @@ import { toast } from "react-hot-toast";
 import { getProducts } from "../../../api/products/products";
 import { deleteProduct } from "../../../api/products/deleteProduct";
 import { updateProduct } from "../../../api/products/updateProduct";
-import { AuthContext } from "../../../context/AuthContext";
 import { getCategories } from "../../../api/Categories/getCategories";
 
 export default function useProductsHook() {
-  const { accessToken } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
   // ================= FILTERS =================
@@ -28,8 +26,7 @@ export default function useProductsHook() {
     isLoading: productsLoading,
   } = useQuery({
     queryKey: ["products"],
-    queryFn: () => getProducts(accessToken),
-    enabled: !!accessToken,
+    queryFn: getProducts,
   });
 
   // ================= GET CATEGORIES =================
@@ -38,8 +35,7 @@ export default function useProductsHook() {
     isLoading: categoriesLoading,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(accessToken),
-    enabled: !!accessToken,
+    queryFn: getCategories,
   });
 
   // ================= PRODUCT TYPES =================
@@ -89,7 +85,6 @@ export default function useProductsHook() {
     mutationFn: ({ id }) =>
       deleteProduct({
         id,
-        accessToken,
       }),
 
     onSuccess: () => {
@@ -114,7 +109,6 @@ export default function useProductsHook() {
       updateProduct({
         id,
         values,
-        accessToken,
       }),
 
     onSuccess: () => {

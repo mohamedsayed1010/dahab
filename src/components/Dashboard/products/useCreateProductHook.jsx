@@ -1,22 +1,20 @@
-import { useContext, useState , useRef } from "react";
+import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import { createProduct } from "../../../api/products/createProduct";
-import { AuthContext } from "./../../../context/AuthContext";
-import { getCategories } from "./../../../api/Categories/getCategories";
+import { getCategories } from "../../../api/Categories/getCategories";
 
 export default function useCreateProductHook() {
-  const { token } = useContext(AuthContext);
-const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
   // ================= CATEGORIES =================
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(token),
+    queryFn: getCategories,
   });
 
   // ================= VALIDATION =================
@@ -66,7 +64,6 @@ const fileInputRef = useRef(null);
       try {
         await createProduct({
           values,
-          token,
         });
 
         toast.success("تم إضافة المنتج بنجاح ✅");
@@ -75,10 +72,8 @@ const fileInputRef = useRef(null);
         setPreview(null);
 
         if (fileInputRef.current) {
-  fileInputRef.current.value = "";
-}
-
-
+          fileInputRef.current.value = "";
+        }
       } catch (error) {
         toast.error(
           error?.response?.data?.message ||

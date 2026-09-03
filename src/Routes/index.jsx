@@ -7,6 +7,7 @@ import NewJewelry from './../components/Tabs/tabs-content/jewelry/NewJewelry';
 import UsedJewelry from './../components/Tabs/tabs-content/jewelry/UsedJewelry';
 import SilverBars from './../components/Tabs/tabs-content/silver/SilverBars';
 import SilverPrices from './../components/Tabs/tabs-content/silver/SilverPrices';
+import SilverProducts from './../components/Tabs/tabs-content/silver/SilverProducts';
 import AuthPage from './../components/AuthPage/AuthPage';
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Dashboard from './../components/Dashboard/Dashboard';
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
         path: "bars",
         children: [
           { path: "list", element: <ProtectedRoute> <BarsList /> </ProtectedRoute> },
-          { path: "coins", element: <ProtectedRoute> <Coins /> </ProtectedRoute>  },
+          // { path: "coins", element: <ProtectedRoute> <Coins /> </ProtectedRoute>  },
         ],
       },
 
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "bars", element: <ProtectedRoute> <SilverBars /> </ProtectedRoute>  },
           { path: "prices", element: <ProtectedRoute> <SilverPrices /> </ProtectedRoute>  },
+          { path: "products", element: <ProtectedRoute> <SilverProducts /> </ProtectedRoute>  },
         ],
       },
       {path:"login", element:<AuthPage/>},
