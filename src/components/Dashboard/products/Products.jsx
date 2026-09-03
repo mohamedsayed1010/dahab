@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import useProductsHook from "./useProductsHook";
+import ImagePreviewModal from "../../ImagePreviewModal/ImagePreviewModal";
 
 export default function Products() {
   const navigate = useNavigate();
@@ -25,6 +28,8 @@ export default function Products() {
     selectedType,
     setSelectedType,
   } = useProductsHook();
+
+  const [previewImage, setPreviewImage] = useState(null);
 
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
@@ -122,11 +127,21 @@ export default function Products() {
             key={product._id}
             className="bg-card border border-border rounded-xl p-4"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-40 object-cover rounded-lg mb-3"
-            />
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setPreviewImage(product);
+              }}
+              className="block w-full mb-3 cursor-pointer"
+              aria-label={`عرض صورة ${product.name}`}
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-40 object-cover rounded-lg"
+              />
+            </button>
 
             <h2 className="text-xl font-bold dark:text-white">
               {product.name}
@@ -199,6 +214,12 @@ export default function Products() {
           لا يوجد منتجات مطابقة للفلاتر
         </div>
       )}
+
+      <ImagePreviewModal
+        src={previewImage?.image}
+        alt={previewImage?.name}
+        onClose={() => setPreviewImage(null)}
+      />
     </div>
   );
 }
