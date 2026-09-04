@@ -92,7 +92,7 @@ export default function Navbar() {
             </div>
           )}
 
-          <IconButton onClick={toggleDrawer(true)}>
+          <IconButton onClick={toggleDrawer(true)} aria-label="فتح القائمة">
             <MenuIcon className="text-primary" />
           </IconButton>
         </div>

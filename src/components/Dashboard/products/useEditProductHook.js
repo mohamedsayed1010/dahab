@@ -13,7 +13,6 @@ import { updateProduct } from "../../../api/products/updateProduct";
 export default function useEditProductHook() {
   const { accessToken } = useContext(AuthContext);
   const { id } = useParams();
-  console.log("ID:", id);
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);

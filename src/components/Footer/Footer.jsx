@@ -32,6 +32,7 @@ export default function Footer() {
               <div className="flex items-center justify-center gap-2 md:gap-4">
                 <a
                   href="https://t.me/amr_elaraby_gold1"
+                  aria-label="قناتنا على تيليجرام"
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-400 hover:scale-110 transition"
@@ -41,6 +42,7 @@ export default function Footer() {
 
                 <a
                   href="https://wa.me/201027070200"
+                  aria-label="تواصل معنا على واتساب"
                   target="_blank"
                   rel="noreferrer"
                   className="text-green-500 hover:scale-110 transition"
@@ -58,6 +60,7 @@ export default function Footer() {
 
               <a
                 href="tel:+201027070200"
+                aria-label="اتصل بنا هاتفياً"
                 className="text-black dark:text-white hover:scale-110 transition"
               >
                 <IoIosCall className="text-3xl md:text-5xl" />
@@ -73,6 +76,7 @@ export default function Footer() {
               <div className="flex items-center justify-center gap-2 md:gap-4">
                 <a
                   href="http://vf.eg/vfcash?id=mt&qrId=LuMag9"
+                  aria-label="الدفع عبر فودافون كاش"
                   target="_blank"
                   rel="noreferrer"
                   className="text-red-600 hover:scale-110 transition"
@@ -82,6 +86,7 @@ export default function Footer() {
 
                 <a
                   href="https://ipn.eg/S/instapaycf2d558e14b24/instapay/5MJCeR"
+                  aria-label="الدفع عبر إنستاباي"
                   target="_blank"
                   rel="noreferrer"
                   className="
@@ -107,6 +112,7 @@ export default function Footer() {
             <div className="flex items-center justify-center gap-2 font-semibold col-span-3 lg:col-span-1">
               <a
                 href="https://www.google.com/maps/place/29%C2%B018'29.4%22N+30%C2%B050'23.6%22E/@29.3081627,30.8373223,17z/data=!3m1!4b1!4m4!3m3!8m2!3d29.3081627!4d30.8398972"
+                aria-label="موقعنا على خرائط جوجل"
                 target="_blank"
                 rel="noreferrer"
                 className="text-red-600 hover:scale-110 transition"

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import HomeContent from './../components/Tabs/tabs-content/HomeContent/HomeContent';
 import BarsList from './../components/Tabs/tabs-content/bars/BarsList';
-import Coins from './../components/Tabs/tabs-content/bars/Coins';
 import NewJewelry from './../components/Tabs/tabs-content/jewelry/NewJewelry';
 import UsedJewelry from './../components/Tabs/tabs-content/jewelry/UsedJewelry';
 import SilverBars from './../components/Tabs/tabs-content/silver/SilverBars';
@@ -16,6 +15,8 @@ import CreateProduct from "../components/Dashboard/products/CreateProduct";
 import Products from './../components/Dashboard/products/Products';
 import UsersPage from './../components/Dashboard/users/UsersPage';
 import EditProduct from './../components/Dashboard/products/EditProduct';
+import PublicOnlyRoute from "../components/ProtectedRoute/PublicOnlyRoute";
+import NotFound from "../components/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -48,12 +49,13 @@ export const router = createBrowserRouter([
           { path: "products", element: <ProtectedRoute> <SilverProducts /> </ProtectedRoute>  },
         ],
       },
-      {path:"login", element:<AuthPage/>},
+      {path:"login", element:<PublicOnlyRoute><AuthPage/></PublicOnlyRoute>},
       {path:"dashboard", element: <AdminRoute> <Dashboard/> </AdminRoute>   },
       {path:"create-product", element: <AdminRoute> <CreateProduct/> </AdminRoute> },
       {path:"products", element: <AdminRoute> <Products/> </AdminRoute> },
       {path:"users", element: <AdminRoute> <UsersPage/> </AdminRoute> },
-      {path:"products/edit/:id", element: <AdminRoute><EditProduct/></AdminRoute>}
+      {path:"products/edit/:id", element: <AdminRoute><EditProduct/></AdminRoute>},
+      {path:"*", element: <NotFound/>}
 
     ],
   },

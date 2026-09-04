@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /products
+Disallow: /create-product
+Disallow: /users
+Disallow: /login
+
+Sitemap: https://dahbelarby.com/sitemap.xml
