@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
+import { cleanNameForSubmit } from "../../utils/normalizeArabicName";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +20,11 @@ const normalizePhone = (phone) => {
 
   if (phone.startsWith("+20")) {
     return phone;
+  }
+
+  // already international but missing the plus, e.g. 201010104638
+  if (phone.startsWith("20")) {
+    return `+${phone}`;
   }
 
   return `+20${phone.replace(/^0/, "")}`;
@@ -106,6 +112,7 @@ const normalizePhone = (phone) => {
 
       const formattedValues = {
         ...values,
+        name: cleanNameForSubmit(values.name),
         phone: normalizePhone(values.phone),
       };
 
