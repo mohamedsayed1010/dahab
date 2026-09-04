@@ -58,9 +58,18 @@ export const NOT_FOUND_META = page(
   PRIVATE
 );
 
+// These pages render their own visible <h1>; the layout must not add a second.
+const OWN_H1 = new Set([
+  "/bars/list",
+  "/jewelry/new",
+  "/jewelry/used",
+  "/silver/bars",
+  "/silver/products",
+]);
+
 export const getRouteMeta = (pathname) => {
   const key = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  if (ROUTE_META[key]) return ROUTE_META[key];
+  if (ROUTE_META[key]) return { ...ROUTE_META[key], ownH1: OWN_H1.has(key) };
   if (/^\/products\/edit\/[^/]+$/.test(key)) {
     return page("تعديل منتج", "تعديل بيانات منتج.", PRIVATE);
   }

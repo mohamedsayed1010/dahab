@@ -7,9 +7,8 @@ import useSeo from "../../seo/useSeo";
 export default function Layout() {
   const meta = useSeo();
 
-  // Public pages render their data as tables/cards with no page heading, so
-  // the h1 is supplied here for search engines and screen readers.
-  const showHeading = meta.robots === "index, follow";
+  // Supply an h1 only for indexable pages that don't already render one.
+  const showHeading = meta.robots === "index, follow" && !meta.ownH1;
 
   return (
     <div className="bg-theme  bg-cover bg-left-top bg-no-repeat min-h-screen">
