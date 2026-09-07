@@ -1,4 +1,5 @@
 import AppLoader from "../AppLoader";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 import useJewelry from "./useJewelry";
 
 export default function Jewelry({ category }) {
@@ -240,6 +241,8 @@ export default function Jewelry({ category }) {
           </div>
         </div>
       )}
+
+      <ScrollToTopButton />
     </>
   );
 }

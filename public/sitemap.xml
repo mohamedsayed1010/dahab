@@ -7,4 +7,6 @@
   <url><loc>https://dahbelarby.com/silver/prices</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://dahbelarby.com/silver/bars</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
   <url><loc>https://dahbelarby.com/silver/products</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dahbelarby.com/terms</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dahbelarby.com/privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>

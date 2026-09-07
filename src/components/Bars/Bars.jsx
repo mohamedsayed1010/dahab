@@ -1,4 +1,5 @@
 import AppLoader from "../AppLoader";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 import useBars from "./useBars";
 
 export default function Bars({ category }) {
@@ -50,8 +51,6 @@ const {
               border-border
               bg-card
               dark:text-white
-
-              outline-none
             "
           >
             <option value="">اختار الوزن</option>
@@ -305,6 +304,8 @@ const {
           </div>
         </div>
       )}
+
+      <ScrollToTopButton />
     </>
   );
 }

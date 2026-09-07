@@ -1,4 +1,5 @@
 import AppLoader from "../AppLoader";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 import useSilver from "./useSilver";
 
 export default function Silver({ category }) {
@@ -246,6 +247,8 @@ export default function Silver({ category }) {
           </div>
         </div>
       )}
+
+      <ScrollToTopButton />
     </>
   );
 }

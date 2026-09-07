@@ -26,7 +26,7 @@ html {
   --warning: #af7a28;
   --danger: #c62828;
 
-  --background-image: url("/light.png");
+  --background-image: url("/light.webp");
 }
 
 .dark {
@@ -48,5 +48,25 @@ html {
   --warning: #ddb15a;
   --danger: #e45757;
 
-  --background-image: url("/dark.png");
+  --background-image: url("/dark.webp");
+}
+/* Visible keyboard focus for all interactive elements (keyboard users only,
+   so mouse/touch interaction is visually unchanged). Uses the brand gold. */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respect users who prefer reduced motion: near-instant transitions/animations
+   and no smooth scrolling, without removing the design's states entirely. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

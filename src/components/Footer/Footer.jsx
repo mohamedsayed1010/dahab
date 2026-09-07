@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import {
   FaTelegramPlane,
   FaWhatsapp,
@@ -9,8 +12,15 @@ import { RiVisaLine } from "react-icons/ri";
 import { IoIosCall } from "react-icons/io";
 
 export default function Footer() {
+  const [legalOpen, setLegalOpen] = useState(false);
+
+  const legalLinks = [
+    { to: "/terms", label: "الشروط والأحكام" },
+    { to: "/privacy", label: "سياسة الخصوصية" },
+  ];
+
   return (
-    <footer className="mt-10 border-t border-border bg-card">
+    <footer className="mt-10 border-t border-border bg-card overflow-x-clip">
       <div className="w-[95%] md:w-[90%] mx-auto py-6">
         <div className="flex flex-col items-center gap-6">
           {/* Top Section */}
@@ -25,9 +35,9 @@ export default function Footer() {
           >
             {/* Follow Us */}
             <div className="flex flex-col items-center text-center gap-2">
-              <h3 className="text-xs md:text-lg font-bold text-primary">
+              <h2 className="text-xs md:text-lg font-bold text-primary">
                 تابعنا
-              </h3>
+              </h2>
 
               <div className="flex items-center justify-center gap-2 md:gap-4">
                 <a
@@ -54,9 +64,9 @@ export default function Footer() {
 
             {/* Contact Us */}
             <div className="flex flex-col items-center text-center gap-2">
-              <h3 className="text-xs md:text-lg font-bold text-primary">
+              <h2 className="text-xs md:text-lg font-bold text-primary">
                 اتصل بنا
-              </h3>
+              </h2>
 
               <a
                 href="tel:+201027070200"
@@ -69,9 +79,9 @@ export default function Footer() {
 
             {/* Payment Methods */}
             <div className="flex flex-col items-center text-center gap-2">
-              <h3 className="text-xs md:text-lg font-bold text-primary">
+              <h2 className="text-xs md:text-lg font-bold text-primary">
                 طرق الدفع
-              </h3>
+              </h2>
 
               <div className="flex items-center justify-center gap-2 md:gap-4">
                 <a
@@ -81,7 +91,7 @@ export default function Footer() {
                   rel="noreferrer"
                   className="text-red-600 hover:scale-110 transition"
                 >
-                  <SiVodafone className="text-3xl md:text-4xl" />
+                  <SiVodafone aria-hidden="true" className="text-3xl md:text-4xl" />
                 </a>
 
                 <a
@@ -127,15 +137,16 @@ export default function Footer() {
 
                 <div
                   className="
-          absolute bottom-full mb-2 right-0
+          absolute bottom-full mb-2
+          left-1/2 -translate-x-1/2
           hidden group-hover:block
-          w-80
+          w-max max-w-[85vw] md:max-w-sm
           p-3
           rounded-xl
           bg-card
           border border-border
           shadow-xl
-          text-xl
+          text-base md:text-xl
           leading-6
           z-50
           whitespace-normal
@@ -218,12 +229,59 @@ export default function Footer() {
               </a>
             </div>
 
+            {/* Legal drawer trigger */}
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={() => setLegalOpen(true)}
+                className="text-xs md:text-sm text-textMuted hover:text-primary underline-offset-4 hover:underline transition"
+              >
+                الشروط والأحكام وسياسة الخصوصية
+              </button>
+            </div>
+
             <p className="text-xs text-textMuted mt-3">
               جميع الحقوق محفوظة © {new Date().getFullYear()}
             </p>
           </div>
         </div>
       </div>
+
+      {/* Legal links drawer — reuses the app's MUI Drawer (accessible focus
+          trap, ESC to close, backdrop click to close, keyboard support). */}
+      <Drawer
+        anchor="bottom"
+        open={legalOpen}
+        onClose={() => setLegalOpen(false)}
+        ModalProps={{ "aria-labelledby": "legal-drawer-title" }}
+      >
+        <div className="w-full max-w-md mx-auto p-4">
+          <h2
+            id="legal-drawer-title"
+            className="text-lg font-bold text-primary text-center mb-3"
+          >
+            روابط قانونية
+          </h2>
+
+          <List>
+            {legalLinks.map((item) => (
+              <ListItem key={item.to} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to={item.to}
+                  onClick={() => setLegalOpen(false)}
+                  sx={{ borderRadius: 2, textAlign: "center" }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                    slotProps={{ primary: { sx: { fontWeight: 700 } } }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </Drawer>
     </footer>
   );
 }

@@ -35,14 +35,10 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2,webp}"],
         globIgnores: [
           // Social-preview image is fetched by crawlers only, never by the app.
           "**/og-image.png",
-          // Large light-theme background (~1.6 MB, non-default theme). It still
-          // loads normally over the network; keeping it out of the precache
-          // avoids bloating the first-visit install for every user.
-          "**/light.png",
         ],
         // No runtimeCaching by design: the gold/silver price API must always
         // hit the network so users never see a stale price.

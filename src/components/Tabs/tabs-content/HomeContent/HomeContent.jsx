@@ -21,12 +21,12 @@ export default function HomeContent() {
         <div className="bg-card border border-border rounded-3xl p-3 h-fit">
           <div className="flex items-center justify-center gap-6">
             <div className="w-12 h-12 rounded-full border border-green-500/30 flex items-center justify-center flex-shrink-0">
-              <TrendingUp size={32} className="text-success" />
+              <TrendingUp size={32} aria-hidden="true" className="text-success" />
             </div>
 
-            <h3 className="text-success font-bold text-2xl md:text-4xl whitespace-nowrap">
+            <h2 className="text-success font-bold text-2xl md:text-4xl whitespace-nowrap">
               بيع
-            </h3>
+            </h2>
           </div>
 
           <p className="text-center text-5xl md:text-7xl font-bold mt-3 text-black dark:text-white leading-none">
@@ -38,12 +38,12 @@ export default function HomeContent() {
         <div className="bg-card border border-border rounded-3xl p-3 h-fit">
           <div className="flex items-center justify-center gap-6">
             <div className="w-12 h-12 rounded-full border border-red-500/30 flex items-center justify-center flex-shrink-0">
-              <TrendingDown size={32} className="text-danger" />
+              <TrendingDown size={32} aria-hidden="true" className="text-danger" />
             </div>
 
-            <h3 className="text-danger font-bold text-2xl md:text-4xl whitespace-nowrap">
+            <h2 className="text-danger font-bold text-2xl md:text-4xl whitespace-nowrap">
               شراء
-            </h3>
+            </h2>
           </div>
 
           <p className="text-center text-5xl md:text-7xl font-bold mt-3 text-black dark:text-white leading-none">
@@ -56,7 +56,7 @@ export default function HomeContent() {
       <div className="flex justify-center ">
         <div className="w-36 h-36 md:w-28 md:h-28 xl:w-36  xl:h-36  bg-black rounded-3xl flex items-center justify-center">
           <img
-            src="/icon.png"
+            src="/icon.webp"
             alt="شعار دهب العربي"
             width="144"
             height="144"

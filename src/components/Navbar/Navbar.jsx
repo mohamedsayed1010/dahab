@@ -76,7 +76,7 @@ export default function Navbar() {
           )}
 
           <img
-            src="/icon.png"
+            src="/icon.webp"
             alt="دهب العربي"
             width="48"
             height="48"
@@ -264,7 +264,7 @@ export default function Navbar() {
                         rel="noreferrer"
                         className="inline-flex items-center gap-2 text-primary"
                       >
-                        <SiVodafone />
+                        <SiVodafone aria-hidden="true" />
                         <span>فودافون كاش</span>
                       </a>
                     </div>

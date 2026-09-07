@@ -32,6 +32,9 @@ const Products = lazy(() => import("./../components/Dashboard/products/Products"
 const UsersPage = lazy(() => import("./../components/Dashboard/users/UsersPage"));
 const EditProduct = lazy(() => import("./../components/Dashboard/products/EditProduct"));
 const NotFound = lazy(() => import("../components/NotFound/NotFound"));
+// Public legal pages — no auth required.
+const TermsPage = lazy(() => import("../components/Legal/TermsPage"));
+const PrivacyPage = lazy(() => import("../components/Legal/PrivacyPage"));
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +68,9 @@ export const router = createBrowserRouter([
         ],
       },
       {path:"login", element:<PublicOnlyRoute><AuthPage/></PublicOnlyRoute>},
+      // Public legal pages (no login required).
+      {path:"terms", element: <TermsPage/>},
+      {path:"privacy", element: <PrivacyPage/>},
       {path:"dashboard", element: <AdminRoute> <Dashboard/> </AdminRoute>   },
       {path:"create-product", element: <AdminRoute> <CreateProduct/> </AdminRoute> },
       {path:"products", element: <AdminRoute> <Products/> </AdminRoute> },

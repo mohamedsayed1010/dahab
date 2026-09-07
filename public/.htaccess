@@ -22,3 +22,13 @@
   # Everything else falls back to the SPA entry point.
   RewriteRule ^ index.html [L]
 </IfModule>
+
+# Long-lived caching for content-hashed build assets only. Files under
+# /assets/ carry a content hash in their name (e.g. index-ABC123.js), so a new
+# build produces a new filename — they can be cached for a year immutably.
+# index.html, sw.js, the manifest and root images are deliberately excluded so
+# they keep revalidating and updates ship immediately.
+<IfModule mod_headers.c>
+  SetEnvIf Request_URI "^/assets/" LONG_CACHE
+  Header set Cache-Control "public, max-age=31536000, immutable" env=LONG_CACHE
+</IfModule>

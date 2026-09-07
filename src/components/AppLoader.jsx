@@ -10,7 +10,7 @@ export default function AppLoader() {
           {/* Logo */}
           <div className="w-28 h-28 rounded-3xl bg-black flex items-center justify-center p-2">
             <img
-              src="/icon.png"
+              src="/icon.webp"
               alt="Gold App"
               className="w-full h-full rounded-2xl object-cover"
             />
