@@ -1,14 +1,15 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { getLastTelegramPrice } from "../api/telegram/telegram";
-
-const GoldPriceContext = createContext();
+import { GoldPriceContext } from "./gold-price-context";
 
 export function GoldPriceProvider({ children }) {
-  const [ouncePrice, setOuncePrice] = useState(() => {
-    return Number(localStorage.getItem("ouncePrice")) || null;
-  });
+  // Seeded from the last persisted price so there's a value on first paint /
+  // offline, then updated as fresh prices arrive.
+  const [ouncePrice, setOuncePrice] = useState(
+    () => Number(localStorage.getItem("ouncePrice")) || null
+  );
 
   const { data } = useQuery({
     queryKey: ["last-telegram-price"],
@@ -21,16 +22,24 @@ export function GoldPriceProvider({ children }) {
     retry: 1,
   });
 
+  // Adjust state while rendering when new query data arrives (React's
+  // recommended pattern for deriving state from a changing value) instead of
+  // syncing it inside an effect. Guarded by an identity check so it doesn't
+  // loop, and only a genuinely valid price overwrites the last known one.
+  const [seenData, setSeenData] = useState(data);
+  if (data !== seenData) {
+    setSeenData(data);
+    const price = data?.success ? Number(data.data.lastPrice) : 0;
+    if (price) setOuncePrice(price);
+  }
+
+  // Persisting to localStorage is a real external side effect, so it stays in
+  // an effect.
   useEffect(() => {
-    if (!data?.success) return;
-
-    const price = Number(data.data.lastPrice);
-
-    if (!price) return;
-
-    setOuncePrice(price);
-    localStorage.setItem("ouncePrice", price);
-  }, [data]);
+    if (ouncePrice) {
+      localStorage.setItem("ouncePrice", ouncePrice);
+    }
+  }, [ouncePrice]);
 
   return (
     <GoldPriceContext.Provider value={{ ouncePrice }}>
@@ -38,5 +47,3 @@ export function GoldPriceProvider({ children }) {
     </GoldPriceContext.Provider>
   );
 }
-
-export const useGoldPrice = () => useContext(GoldPriceContext);

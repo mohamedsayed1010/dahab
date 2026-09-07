@@ -5,7 +5,6 @@ export default function CreateProduct() {
     formik,
     categories,
     preview,
-    isLoading,
     handleImageChange,
     fileInputRef,
   } = useCreateProductHook();
@@ -44,6 +43,7 @@ export default function CreateProduct() {
           <div>
             <select
               name="category"
+              aria-label="التصنيف"
               value={formik.values.category}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -162,6 +162,7 @@ export default function CreateProduct() {
   ref={fileInputRef}
   type="file"
   accept="image/*"
+  aria-label="صورة المنتج"
   onChange={handleImageChange}
   className="w-full"
 />

@@ -64,7 +64,7 @@ export default function useDashboardPrices(accessToken) {
         toast.success("تم تحديث أسعار الذهب 👑");
         goldFormik.resetForm();
 
-      } catch (error) {
+      } catch {
         toast.error("خطأ في تحديث الذهب");
       }
     },

@@ -1,7 +1,6 @@
 import { Home } from "lucide-react";
 import { LuArrowUpDown } from "react-icons/lu";
 import { GiMetalBar, GiRingBox, GiPowerRing } from "react-icons/gi";
-import { FaCoins } from "react-icons/fa6";
 
 export const tabs = [
   {

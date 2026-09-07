@@ -1,20 +1,5 @@
-import {
-  Coins,
-  TrendingUp,
-  TrendingDown,
-  Building2,
-  CircleDollarSign,
-  ArrowLeftRight,
-} from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import { useGold } from "./useGold";
-
-const GoldDivider = () => {
-  return (
-    <div className="flex items-center justify-center mt-4">
-      <div className="h-[2px] w-60 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full" />
-    </div>
-  );
-};
 
 export default function HomeContent() {
   const {
@@ -72,7 +57,10 @@ export default function HomeContent() {
         <div className="w-36 h-36 md:w-28 md:h-28 xl:w-36  xl:h-36  bg-black rounded-3xl flex items-center justify-center">
           <img
             src="/icon.png"
-            alt="logo"
+            alt="شعار دهب العربي"
+            width="144"
+            height="144"
+            decoding="async"
             className="w-full h-full object-cover rounded-xl"
           />
         </div>
@@ -90,28 +78,42 @@ export default function HomeContent() {
 
       {/* ================= PRICES TABLE ================= */}
       <div className="bg-card border border-border rounded-3xl overflow-hidden mb-4">
-        <div className="grid grid-cols-3 bg-primary text-white font-semibold text-3xl">
-          <div className="p-3 text-center">العيار</div>
-          <div className="p-3 text-center">بيع</div>
-          <div className="p-3 text-center">شراء</div>
-        </div>
-
-        {prices.map((item) => (
-          <div
-            key={item.karat}
-            className="grid grid-cols-3 border-t border-border"
-          >
-            <div className="p-3 text-center font-bold dark:text-white text-3xl">
-              {item.karat}
-            </div>
-            <div className="p-3 text-center dark:text-white text-3xl font-bold">
-              {Math.ceil(item.sell)}
-            </div>
-            <div className="p-3 text-center dark:text-white text-3xl font-bold">
-              {Math.ceil(item.buy)}
-            </div>
-          </div>
-        ))}
+        <table className="w-full table-fixed">
+          <caption className="sr-only">
+            أسعار الذهب حسب العيار: سعر البيع وسعر الشراء
+          </caption>
+          <thead>
+            <tr className="bg-primary text-white font-semibold text-3xl">
+              <th scope="col" className="p-3 text-center font-semibold">
+                العيار
+              </th>
+              <th scope="col" className="p-3 text-center font-semibold">
+                بيع
+              </th>
+              <th scope="col" className="p-3 text-center font-semibold">
+                شراء
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {prices.map((item) => (
+              <tr key={item.karat}>
+                <th
+                  scope="row"
+                  className="p-3 text-center font-bold dark:text-white text-3xl border-t border-border"
+                >
+                  {item.karat}
+                </th>
+                <td className="p-3 text-center dark:text-white text-3xl font-bold border-t border-border">
+                  {Math.ceil(item.sell)}
+                </td>
+                <td className="p-3 text-center dark:text-white text-3xl font-bold border-t border-border">
+                  {Math.ceil(item.buy)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* ================= STATS ================= */}

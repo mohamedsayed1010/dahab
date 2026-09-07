@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/auth-context";
 import { HiArrowDownTray } from "react-icons/hi2";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -77,7 +77,10 @@ export default function Navbar() {
 
           <img
             src="/icon.png"
-            alt="Logo"
+            alt="دهب العربي"
+            width="48"
+            height="48"
+            decoding="async"
             className="h-12 w-12 rounded-md bg-black"
           />
 

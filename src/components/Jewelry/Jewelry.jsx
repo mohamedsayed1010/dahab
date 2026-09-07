@@ -131,6 +131,8 @@ export default function Jewelry({ category }) {
                 <img
                   src={item.image}
                   alt={item.name}
+                  loading="lazy"
+                  decoding="async"
                   className="
                     w-full
                     h-full

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getUsdEgp } from "../../../../api/money/money";
 import { getGoldPrices } from "../../../../api/gold/goldPrices";
-import { useGoldPrice } from "../../../../context/GoldPriceContext";
+import { useGoldPrice } from "../../../../context/gold-price-context";
 
 export function useGold() {
 // ================= GOLD PRICE CONTEXT =================

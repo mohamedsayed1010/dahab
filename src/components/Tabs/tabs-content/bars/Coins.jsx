@@ -1,4 +1,3 @@
-import React from 'react'
 import Bars from '../../../Bars/Bars'
 
 const Coins = () => {

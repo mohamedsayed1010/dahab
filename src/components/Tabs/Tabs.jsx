@@ -22,10 +22,9 @@ export default function Tabs() {
   } =useTabsLogic("tab");
 
   return (
-    <div className="w-full mt-3 px-2 md:px-4">
+    <nav aria-label="أقسام الأسعار" className="w-full mt-3 px-2 md:px-4">
       <div className="flex w-full backdrop-blur-md rounded-2xl border border-border shadow-lg overflow-hidden">
         {tabs.map((tab) => {
-          const Icon = tab.icon;
           const mainActive = isMainActive(tab);
           const hasChildren = !!tab.children;
 
@@ -93,6 +92,6 @@ export default function Tabs() {
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }

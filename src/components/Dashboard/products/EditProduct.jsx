@@ -48,6 +48,7 @@ export default function EditProduct() {
           <div>
             <select
               name="category"
+              aria-label="التصنيف"
               value={formik.values.category}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -164,6 +165,7 @@ export default function EditProduct() {
               ref={fileInputRef}
               type="file"
               accept="image/*"
+              aria-label="صورة المنتج"
               onChange={handleImageChange}
               className="w-full"
             />

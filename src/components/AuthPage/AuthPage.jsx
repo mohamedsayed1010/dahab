@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/auth-context";
 import { cleanNameForSubmit } from "../../utils/normalizeArabicName";
 
 export default function Login() {
@@ -121,33 +121,22 @@ const normalizePhone = (phone) => {
         formattedValues
       );
 
-      // ================= ADMIN LOGIN =================
-const ADMIN_PHONES = [
-  "+201027070200",
-  "+201557070595", 
-];
-
-if (ADMIN_PHONES.includes(data.user?.phone)) {
-  login({
-    accessToken: data.accessToken,
-    refreshToken: data.refreshToken,
-    user: {
-      ...data.user,
-      role: "admin",
-    },
-  });
-
-  toast.success("أهلاً Admin 👑");
-  navigate("/dashboard");
-  return;
-}
-
-      // ================= USER LOGIN =================
+      // Persist exactly what the server returned. The role comes from the
+      // backend response — authorization is enforced server-side and is never
+      // inferred on the client (no admin identifiers live in this bundle).
       login({
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
         user: data.user,
       });
+
+      // Admins are routed to the dashboard purely as a UI convenience; the
+      // backend remains the source of truth for who is an admin.
+      if (data.user?.role === "admin") {
+        toast.success("أهلاً Admin 👑");
+        navigate("/dashboard");
+        return;
+      }
 
       toast.success("تم تسجيل الدخول بنجاح");
       navigate("/");
@@ -187,6 +176,7 @@ if (ADMIN_PHONES.includes(data.user?.phone)) {
         >
           <input
             name="name"
+            aria-label="الاسم"
             placeholder="الاسم"
             value={formik.values.name}
             onChange={(e) => {
@@ -212,6 +202,7 @@ if (ADMIN_PHONES.includes(data.user?.phone)) {
             type="tel"
             inputMode="numeric"
             maxLength={11}
+            aria-label="رقم الموبايل"
             placeholder="رقم الموبايل (010...)"
             value={formik.values.phone}
             onChange={(e) => {

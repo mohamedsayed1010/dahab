@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function useTabsLogic(tabs) {
+export default function useTabsLogic() {
   const navigate = useNavigate();
   const location = useLocation();
 

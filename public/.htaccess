@@ -1,0 +1,24 @@
+# SPA history fallback for React Router (Hostinger / LiteSpeed / Apache).
+# Requests for real files and directories are served as-is; everything else
+# is handed to index.html so client-side routing can resolve deep links and
+# browser refreshes (e.g. /silver/prices, /login) instead of returning a 404.
+#
+# Notes:
+# - No HTTP->HTTPS redirect here on purpose: the host already performs that
+#   correctly, and adding a second redirect could cause a redirect loop.
+# - No /api rules: the API lives on a separate domain (api.dahbelarby.com),
+#   so this frontend host never serves API paths.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files and directories directly (assets, sitemap.xml,
+  # robots.txt, manifest.webmanifest, sw.js, icons, etc.).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else falls back to the SPA entry point.
+  RewriteRule ^ index.html [L]
+</IfModule>

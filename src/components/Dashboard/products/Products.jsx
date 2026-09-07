@@ -19,9 +19,6 @@ export default function Products() {
     selectedCategory,
     setSelectedCategory,
 
-    selectedMetal,
-    setSelectedMetal,
-
     selectedKarat,
     setSelectedKarat,
 
@@ -45,6 +42,7 @@ export default function Products() {
       <div className="flex flex-wrap gap-3 mb-6">
         {/* CATEGORY */}
         <select
+          aria-label="تصفية حسب التصنيف"
           value={selectedCategory}
           onChange={(e) =>
             setSelectedCategory(e.target.value)
@@ -75,6 +73,7 @@ export default function Products() {
 
         {/* KARAT */}
         <select
+          aria-label="تصفية حسب العيار"
           value={selectedKarat}
           onChange={(e) =>
             setSelectedKarat(e.target.value)
@@ -97,6 +96,7 @@ export default function Products() {
 
         {/* TYPE */}
         <select
+          aria-label="تصفية حسب الصنف"
           value={selectedType}
           onChange={(e) =>
             setSelectedType(e.target.value)
@@ -139,6 +139,8 @@ export default function Products() {
               <img
                 src={product.image}
                 alt={product.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-40 object-cover rounded-lg"
               />
             </button>

@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import AuthContextProvider from "./context/AuthContext";
 
-import "flowbite";
+// `flowbite` is imported once in main.jsx; no need to pull it in again here.
 import { GoldPriceProvider } from "./context/GoldPriceContext";
 
 function App() {

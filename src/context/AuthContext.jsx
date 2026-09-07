@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { refreshAccessToken } from "../api/auth/refreshToken";
-export const AuthContext = createContext();
+import { AuthContext } from "./auth-context";
 
 export default function AuthContextProvider({ children }) {
   const [accessToken, setAccessToken] = useState(() => {
@@ -69,10 +69,7 @@ export default function AuthContextProvider({ children }) {
           localStorage.setItem("refreshToken", data.refreshToken);
 
           localStorage.setItem("tokenCreatedAt", Date.now());
-
-          console.log("✅ Token refreshed before expiry");
-        } catch (error) {
-          console.log("❌ Token refresh failed");
+        } catch {
           logout();
         }
       }

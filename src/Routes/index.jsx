@@ -1,22 +1,37 @@
+/* eslint-disable react-refresh/only-export-components -- this is a route table,
+   not a component module: it intentionally exports `router` and declares lazy
+   route references, so the Fast Refresh "only export components" rule does not
+   apply here. */
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+
 import Layout from "../components/Layout/Layout";
-import HomeContent from './../components/Tabs/tabs-content/HomeContent/HomeContent';
-import BarsList from './../components/Tabs/tabs-content/bars/BarsList';
-import NewJewelry from './../components/Tabs/tabs-content/jewelry/NewJewelry';
-import UsedJewelry from './../components/Tabs/tabs-content/jewelry/UsedJewelry';
-import SilverBars from './../components/Tabs/tabs-content/silver/SilverBars';
-import SilverPrices from './../components/Tabs/tabs-content/silver/SilverPrices';
-import SilverProducts from './../components/Tabs/tabs-content/silver/SilverProducts';
-import AuthPage from './../components/AuthPage/AuthPage';
+// The homepage is the above-the-fold landing view, so it stays in the initial
+// bundle (eager) to protect LCP — everything else below is code-split.
+import HomeContent from "./../components/Tabs/tabs-content/HomeContent/HomeContent";
+
+// Route guards are tiny and used on every route; keep them eager.
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
-import Dashboard from './../components/Dashboard/Dashboard';
-import AdminRoute from './../components/ProtectedRoute/AdminRoute';
-import CreateProduct from "../components/Dashboard/products/CreateProduct";
-import Products from './../components/Dashboard/products/Products';
-import UsersPage from './../components/Dashboard/users/UsersPage';
-import EditProduct from './../components/Dashboard/products/EditProduct';
+import AdminRoute from "../components/ProtectedRoute/AdminRoute";
 import PublicOnlyRoute from "../components/ProtectedRoute/PublicOnlyRoute";
-import NotFound from "../components/NotFound/NotFound";
+
+// Lazily loaded routes. Each becomes its own chunk, so heavy, rarely-used
+// pages (admin dashboard + @mui/x-data-grid, formik/yup forms, etc.) are no
+// longer downloaded as part of the first paint. A single <Suspense> boundary
+// in Layout renders the fallback while these chunks load.
+const BarsList = lazy(() => import("./../components/Tabs/tabs-content/bars/BarsList"));
+const NewJewelry = lazy(() => import("./../components/Tabs/tabs-content/jewelry/NewJewelry"));
+const UsedJewelry = lazy(() => import("./../components/Tabs/tabs-content/jewelry/UsedJewelry"));
+const SilverBars = lazy(() => import("./../components/Tabs/tabs-content/silver/SilverBars"));
+const SilverPrices = lazy(() => import("./../components/Tabs/tabs-content/silver/SilverPrices"));
+const SilverProducts = lazy(() => import("./../components/Tabs/tabs-content/silver/SilverProducts"));
+const AuthPage = lazy(() => import("./../components/AuthPage/AuthPage"));
+const Dashboard = lazy(() => import("./../components/Dashboard/Dashboard"));
+const CreateProduct = lazy(() => import("../components/Dashboard/products/CreateProduct"));
+const Products = lazy(() => import("./../components/Dashboard/products/Products"));
+const UsersPage = lazy(() => import("./../components/Dashboard/users/UsersPage"));
+const EditProduct = lazy(() => import("./../components/Dashboard/products/EditProduct"));
+const NotFound = lazy(() => import("../components/NotFound/NotFound"));
 
 export const router = createBrowserRouter([
   {
