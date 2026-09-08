@@ -32,3 +32,30 @@
   SetEnvIf Request_URI "^/assets/" LONG_CACHE
   Header set Cache-Control "public, max-age=31536000, immutable" env=LONG_CACHE
 </IfModule>
+
+# Security response headers for the static frontend. The API host
+# (api.dahbelarby.com) sets its own equivalent headers; these cover the pages
+# and assets served from this domain.
+#
+# `always` is used so the headers are attached to error responses (404, 500)
+# as well as successful ones.
+#
+# HSTS note: mod_headers' `expr=` conditional is ignored by LiteSpeed, which
+# serves this host, so the HTTPS test uses SetEnvIf/env= instead — the same
+# mechanism the caching rule above already relies on here. The guard only
+# suppresses HSTS when a request is *detectably* plaintext; the host already
+# 301s http:// to https:// before this file serves any content, and RFC 6797
+# requires browsers to ignore an HSTS header received over http:// anyway.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "no-referrer"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  SetEnvIf X-Forwarded-Proto "^http$" PLAINTEXT_REQUEST
+  Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains" env=!PLAINTEXT_REQUEST
+
+  # This host serves static files only, so nothing sets X-Powered-By today.
+  # Unsetting it keeps that true if PHP is ever enabled on the domain.
+  Header always unset X-Powered-By
+</IfModule>

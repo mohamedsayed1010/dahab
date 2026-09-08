@@ -1,0 +1,9 @@
+{
+  "rootCauseHypothesis": "The test could not find a textbox with the accessible name \"رقم الموبايل (010...)\", which usually means the hosting side is serving a different UI than expected: the field may be missing, renamed, translated differently, not rendered due to a runtime error or feature flag, or its accessibility attributes (label/aria-label) are incorrect. Another common cause is that the page is still loading or a script failure prevents the form from rendering, so Playwright cannot locate the input by role and name. Underlying error: Locator expected to have attribute 'رقم الموبايل (010...)'\nActual value: <element(s) not found> \nCall log:\n  - LocatorAssertions.to_have_attribute with timeout 15000ms\n  -   - waiting for get_by_role(\"textbox\", name=\"رقم الموبايل (010...)\").first",
+  "recommendedFixTarget": {
+    "kind": "selector",
+    "reference": ".to_have_attribute",
+    "rationale": "Ensure the page renders an accessible textbox with the exact Arabic accessible name expected by the test: \"رقم الموبايل (010...)\". If the field is present but labeled differently, update the label/aria-label/placeholder association to match. Also verify the mobile-number input is not hidden behind conditional rendering, translation mismatch, or a loading/state issue on first load, and that no overlay or script error prevents it from mounting. If the app is localized, confirm the Arabic locale is served in the test environment and that the form field is available immediately on the page."
+  },
+  "evidence": []
+}
