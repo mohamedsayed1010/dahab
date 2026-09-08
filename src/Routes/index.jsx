@@ -35,6 +35,9 @@ const NotFound = lazy(() => import("../components/NotFound/NotFound"));
 // Public legal pages — no auth required.
 const TermsPage = lazy(() => import("../components/Legal/TermsPage"));
 const PrivacyPage = lazy(() => import("../components/Legal/PrivacyPage"));
+// Public account-deletion page (Google Play requires it to open without login);
+// the DELETE request it performs still requires the access token.
+const DeleteAccountPage = lazy(() => import("../components/Account/DeleteAccountPage"));
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +74,7 @@ export const router = createBrowserRouter([
       // Public legal pages (no login required).
       {path:"terms", element: <TermsPage/>},
       {path:"privacy", element: <PrivacyPage/>},
+      {path:"delete-account", element: <DeleteAccountPage/>},
       {path:"dashboard", element: <AdminRoute> <Dashboard/> </AdminRoute>   },
       {path:"create-product", element: <AdminRoute> <CreateProduct/> </AdminRoute> },
       {path:"products", element: <AdminRoute> <Products/> </AdminRoute> },

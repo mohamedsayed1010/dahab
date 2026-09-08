@@ -160,6 +160,19 @@ export default function Navbar() {
                 </ListItemButton>
               </ListItem>
             )}
+
+            {/* Account deletion. Public page, so it stays visible signed out
+               too — Google Play must be able to reach it without an account. */}
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  navigate("/delete-account");
+                  setOpen(false);
+                }}
+              >
+                <ListItemText primary="حذف الحساب" />
+              </ListItemButton>
+            </ListItem>
           </List>
 
           <Divider />
