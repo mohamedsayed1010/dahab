@@ -13,6 +13,15 @@
   RewriteEngine On
   RewriteBase /
 
+  # /.well-known/ is never handed to the SPA. Digital Asset Links
+  # (/.well-known/assetlinks.json) must return JSON for Chrome to verify the
+  # Trusted Web Activity; if index.html is returned instead, verification
+  # fails and the Android app falls back to a Custom Tab with a visible URL
+  # bar. The rule substitutes nothing and stops rewriting, so the real file
+  # on disk is served. [L] rather than [END] because [END] needs Apache 2.4+
+  # and an unknown flag would 500 the whole site.
+  RewriteRule ^\.well-known/ - [L]
+
   # Serve existing files and directories directly (assets, sitemap.xml,
   # robots.txt, manifest.webmanifest, sw.js, icons, etc.).
   RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -22,6 +31,17 @@
   # Everything else falls back to the SPA entry point.
   RewriteRule ^ index.html [L]
 </IfModule>
+
+# Digital Asset Links must be served as application/json. Some hosts guess
+# text/plain for files under a dot-directory, which makes Chrome reject the
+# statement even when the file itself is correct.
+<IfModule mod_mime.c>
+  AddType application/json .json
+</IfModule>
+
+<Files "assetlinks.json">
+  ForceType application/json
+</Files>
 
 # Long-lived caching for content-hashed build assets only. Files under
 # /assets/ carry a content hash in their name (e.g. index-ABC123.js), so a new

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.dahbelarby.app",
+      "sha256_cert_fingerprints": [
+        "4C:E8:2D:6B:8A:94:3C:1E:58:09:69:BA:78:E4:CB:44:C2:DA:A2:05:98:00:6B:2C:AF:C2:D6:77:31:E9:2D:67"
+      ]
+    }
+  }
+]

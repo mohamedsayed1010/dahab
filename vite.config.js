@@ -43,7 +43,7 @@ export default defineConfig({
         // No runtimeCaching by design: the gold/silver price API must always
         // hit the network so users never see a stale price.
         runtimeCaching: [],
-        navigateFallbackDenylist: [/^\/api\//],
+        navigateFallbackDenylist: [/^\/api\//, /^\/\.well-known\//],
         cleanupOutdatedCaches: true,
       },
     }),
